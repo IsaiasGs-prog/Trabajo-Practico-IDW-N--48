@@ -12,5 +12,3 @@
 
 ## Tecnologías Utilizadas
 - HTML
-- CSS
-- JavaScript
