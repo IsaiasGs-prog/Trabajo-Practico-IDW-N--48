@@ -13,3 +13,4 @@
 
 ## Tecnologías Utilizadas
 - HTML
+- CSS
