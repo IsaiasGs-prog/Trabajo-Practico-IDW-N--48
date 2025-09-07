@@ -149,7 +149,7 @@ section {
 }
 
 .doctor {
-    background: #fff;
+    background: #c6d4d4;
     border: 1px solid #e3eaf3;
     border-radius: 14px;
     padding: 28px;
@@ -244,7 +244,7 @@ iframe {
 }
 
 .department-card {
-    background: #fff;
+    background: #c6d4d4;
     border: 1px solid #e3eaf3;
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(44,62,80,0.07);
@@ -276,4 +276,80 @@ iframe {
     padding: 8px 16px;
     border-radius: 8px;
     font-weight: 500;
+}
+
+
+.Obra-Social {
+    background: #f7fbfc;
+    border-radius: 18px;
+    padding: 32px 0;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+    margin-top: 32px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Obra-Social h3 {
+    color: #1976d2;
+    border-bottom: 2px solid #e3eaf3;
+    padding-bottom: 8px;
+    margin-top: 0;
+    font-weight: 600;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.obra-social-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.obra-social-card {
+    background: #c6d4d4;
+    border: 1px solid #e3eaf3;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+    padding: 24px 18px;
+    text-align: center;
+    width: 250px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.obra-social-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(44, 62, 80, 0.12);
+}
+
+.obra-social-card img {
+    max-width: 90px;
+    max-height: 90px;
+    margin-bottom: 12px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 2px solid #1976d2;
+    background: #60656b;
+    padding: 6px;
+}
+
+.obra-social-card h4 {
+    color: #1976d2;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.obra-social-card p {
+    font-size: 0.98rem;
+    color: #2d3e50;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: left;
 }
