@@ -102,8 +102,8 @@ header nav ul li a:hover {
 
 .landing p {
     font-size: 1.45rem;
-    color: #ffffff;
-    margin-bottom: 32px;
+    color: #000000;
+    margin-bottom: 16px;
     max-width: 600px;
     text-align: center;
     text-shadow: 0 2px 8px #43b5e7;
