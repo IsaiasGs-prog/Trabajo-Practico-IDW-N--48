@@ -68,7 +68,7 @@ header nav ul li a:hover {
     align-items: center;
     justify-content: center;
     min-height: 55vh;
-    background: url('../img/clinica.jpeg') center/cover no-repeat;
+    background: url('../img/clinica.png') center/cover no-repeat;
     border-radius: 18px;
     margin: 32px auto 0 auto;
     max-width: 1100px;
