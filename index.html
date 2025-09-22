@@ -8,18 +8,32 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <header class="navbar sticky-top">
-        <a href="index.html">
-            <img src="img/logo.png" alt="Logo de Clinica-IDW.SA">
-        </a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="institucional.html">Institucional</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
+<!-- Encabezado/Nav con bootstrap -->
+<header>
+    <nav class="navbar navbar-expand-md navbar-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/logo.png" alt="Logo de Clinica-IDW.SA">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="institucional.html">Institucional</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contacto.html">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 
     <main>
         <section class="landing">
@@ -38,29 +52,29 @@
         </section>
 
         <h3>Nuestros Doctores</h3>
-        <section class="doctor-info">
-            <div class="doctor">
+        <section class="doctor-info row">
+            <div class="doctor col-12 col-md-6 col-lg-3">
                 <img src="img/doctor1.jpeg" alt="Dr. Juan Pérez">
                 <h4>Dr. Juan Pérez</h4>
                 <p>Especialidad: Cardiología</p>
                 <p>Teléfono: 345-234-5678</p>
                 <p>Obra Social: Andar</p>
             </div>
-            <div class="doctor">
+            <div class="doctor col-12 col-md-6 col-lg-3">
                 <img src="img/doctor2.jpeg" alt="Dra. Ana Gómez">
                 <h4>Dra. Ana Gómez</h4>
                 <p>Especialidad: Ginecología</p>
                 <p>Teléfono: 345-234-5679</p>
                 <p>Obra Social: Construir Salud</p>
             </div>
-            <div class="doctor">
+            <div class="doctor col-12 col-md-6 col-lg-3">
                 <img src="img/doctor3.jpeg" alt="Dra. Angela Hamilton">
                 <h4>Dra. Angela Hamilton</h4>
                 <p>Especialidad: Pediatría</p>
                 <p>Teléfono: 345-234-5680</p>
                 <p>Obra Social: Cover Salud</p>
             </div>
-            <div class="doctor">
+            <div class="doctor col-12 col-md-6 col-lg-3">
                 <img src="img/doctor4.jpeg" alt="Dr. Carlos López">
                 <h4>Dr. Carlos López</h4>
                 <p>Especialidad: Dermatología</p>
@@ -71,48 +85,49 @@
 
         <section class="Obra-Social">
             <h3>Obras Sociales</h3>
-            <div class="obra-social-list">
-                <div class="obra-social-card">
+            <div class="obra-social-list row">
+                <div class="obra-social-card col-12 col-md-6 col-lg-3">
                     <img src="img/andar-logo.png" alt="Logo de Andar">
                     <h4>Andar</h4>
                     <p>En cada uno de sus planes, la obra social Andar ofrece una completa selección de prestadores de salud en todas las especialidades médicas. Por supuesto, se incluye cardiología, clínica, dermatología, ginecología, kinesiología, neurología, nutrición, oftalmología, pediatría, entre otras.</p>
                 </div>
-                <div class="obra-social-card">
+                <div class="obra-social-card col-12 col-md-6 col-lg-3">
                     <img src="img/construir-salud-logo.jpg" alt="Logo de Construir Salud">
                     <h4>Construir Salud</h4>
                     <p>El punto a destacar de la cartilla de Construir Salud es, sin dudas, su Red de Centros Médicos de Atención Primaria Propios. La obra social cuenta con un CeMAP en un gran número de localidades de todo el país La cabecera de esta red de centros médicos es el Sanatorio Franchín en Capital Federal,</p>
                 </div>
-                <div class="obra-social-card">
+                <div class="obra-social-card col-12 col-md-6 col-lg-3">
                     <img src="img/cover-salud-logo.png" alt="Logo de Cover Salud">
                     <h4>Cover Salud</h4>
                     <p>La red prestacional de la empresa Cover cuenta con más de 2000 profesionales y una ámplia lista de convenios con las instituciones de salud más prestigiosas de Argentina.</p>
                 </div>
-                <div class="obra-social-card">
+                <div class="obra-social-card col-12 col-md-6 col-lg-3">
                     <img src="img/ioma-logo.png" alt="Logo de IOMA">
                     <h4>IOMA</h4>
                     <p>A través de un sistema de consultas online, usted podrá acceder a la completa cartilla médica de IOMA. Usted podrá buscar geográfica por localidad y partido, así como por especialidad médica y tipo de institución. También se consulta desde la misma página la red de farmacias y los centros para la realización de estudios médicos.</p>
                 </div>
+            </div>
         </section>
 
             <section class="departments">
                 <h3>Departamentos Médicos</h3>
-                <div class="departments-list">
-                    <div class="department-card">
+                <div class="departments-list row">
+                    <div class="department-card col-12 col-sm-6 col-md-3">
                         <span class="department-icon">❤️</span>
                         <h4>Cardiología</h4>
                         <p>Diagnóstico y tratamiento de enfermedades del corazón.</p>
                     </div>
-                    <div class="department-card">
+                    <div class="department-card col-12 col-sm-6 col-md-3">
                         <span class="department-icon">👶</span>
                         <h4>Pediatría</h4>
                         <p>Atención integral para niños y adolescentes.</p>
                     </div>
-                    <div class="department-card">
+                    <div class="department-card col-12 col-sm-6 col-md-3">
                         <span class="department-icon">🩺</span>
                         <h4>Medicina General</h4>
                         <p>Consultas y chequeos médicos para toda la familia.</p>
                     </div>
-                    <div class="department-card">
+                    <div class="department-card col-12 col-sm-6 col-md-3">
                         <span class="department-icon">🧬</span>
                         <h4>Laboratorio</h4>
                         <p>Análisis clínicos y estudios especializados.</p>
