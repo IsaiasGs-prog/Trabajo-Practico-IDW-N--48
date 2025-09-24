@@ -6,8 +6,12 @@ body {
     color: #2d3e50;
     line-height: 1.7;
 }
+
+.nav-link{
+    color: #000 !important;
+}
 nav.navbar {
-    background-color: #40bad8 !important; /* mismo color que usas en estilos.css */
+    background-color: #40bad8 !important; 
     border-top: none !important;
     border-bottom: none !important;
 }
