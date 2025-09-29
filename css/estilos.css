@@ -142,50 +142,50 @@ section {
     margin-bottom: 2.5rem;
 }
 
-.doctor-info {
-    background: #f7fbfc;
-    border-radius: 18px;
-    padding: 32px 0;
-    box-shadow: 0 2px 8px rgba(44,62,80,0.07);
-    margin-top: 32px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 32px;
-    justify-items: center;
-}
 
-.doctor {
-    background: #c6d4d4;
-    border: 1px solid #e3eaf3;
-    border-radius: 14px;
-    padding: 28px;
+.doctor-info h3 {
+    color: #1976d2;
+    border-bottom: 2px solid #e3eaf3;
+    padding-bottom: 8px;
+    margin-top: 0;
+    font-weight: 600;
     text-align: center;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 250px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
 }
 
-.doctor:hover {
+
+.doctor-card .card-img-top {
+    height: 250px;
+    object-fit: cover;
+    border-top-left-radius: .375rem;
+    border-top-right-radius: .375rem;
+}
+
+.doctor-card .card-body {
+    background: #ffffff;
+}
+
+.doctor-card .card-title {
+    color: #1976d2;
+    font-weight: 700;
+    margin-bottom: .5rem;
+    font-size: 1.05rem;
+}
+
+
+.doctor-card .card-text {
+    color: #2d3e50;
+    font-size: .95rem;
+}
+
+@media (max-width: 575.98px) {
+.doctor-card .card-img-top {
+    height: 180px;
+}
+}
+
+.doctor-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 24px rgba(44, 62, 80, 0.12);
-}
-
-.doctor img {
-    max-width: 100px;
-    border-radius: 17%;
-    margin-bottom: 12px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border: 4px solid #1976d2;
-}
-
-.doctor h4 {
-    color: #1976d2;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    font-weight: 700;
 }
 
 h2, h3 {
@@ -194,18 +194,10 @@ h2, h3 {
     padding-bottom: 8px;
     margin-top: 0;
     font-weight: 600;
+    text-align: center;
 }
 
-footer {
-    text-align: center;
-    padding: 1.5rem 0;
-    background: #1976d2;
-    color: #fff;
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
-    margin-top: 32px;
-    font-size: 1rem;
-}
+
 
 .intro, .contact-info, .about-us, .contact-form, .contact-details {
     padding: 28px;
@@ -259,6 +251,10 @@ iframe {
     width: 200px;
     margin-bottom: 16px;
 }
+.department-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(44, 62, 80, 0.12);
+}
 
 .department-icon {
     font-size: 2.2rem;
@@ -306,56 +302,56 @@ iframe {
     font-size: 2rem;
 }
 
-.obra-social-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    justify-content: center;
-    margin-top: 24px;
+.obra-card .card-img-top {
+    height: 150px;
+    object-fit: contain;
+    background: #899eb3;
+    border-bottom: 1px solid #e3eaf3;
 }
 
-.obra-social-card {
-    background: #c6d4d4;
-    border: 1px solid #e3eaf3;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(44,62,80,0.07);
-    padding: 24px 18px;
-    text-align: center;
-    width: 250px;
-    margin-bottom: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+.obra-card .card-title {
+    color: #1976d2;
+    font-weight: 700;
 }
 
-.obra-social-card:hover {
+
+.obra-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 24px rgba(44, 62, 80, 0.12);
 }
 
-.obra-social-card img {
-    max-width: 90px;
-    max-height: 90px;
-    margin-bottom: 12px;
-    object-fit: contain;
-    border-radius: 12px;
-    border: 2px solid #1976d2;
-    background: #60656b;
-    padding: 6px;
+.footer {
+    background-color: #40bad8 !important; 
+    padding: 1rem 0;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
 }
 
-.obra-social-card h4 {
-    color: #1976d2;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    font-weight: 700;
+.footer p {
+    margin-bottom: 0.3rem;
+    color: #000000 !important;
 }
 
-.obra-social-card p {
-    font-size: 0.98rem;
-    color: #2d3e50;
-    margin-bottom: 0;
-    margin-top: 0;
-    text-align: left;
+.footer .social-links a {
+    color: #000000 !important; 
+    font-size: 1.8rem;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+    text-decoration: none !important;
+}
+
+.footer .social-links a:hover {
+    text-decoration: none !important; 
+}
+
+.footer .social-links a:hover .bi-instagram {
+    color: #e4405f !important;
+}
+
+.footer .social-links a:hover .bi-whatsapp {
+    color: #25D366 !important;
+}
+
+.footer .social-links a:hover .bi-youtube {
+    color: #ff0000 !important;
 }
