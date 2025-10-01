@@ -4,37 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IDW.SA</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-<!-- Encabezado/Nav con bootstrap -->
-<header>
-    <nav class="navbar navbar-expand-md navbar-light sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <img src="img/logo.png" alt="Logo de Clinica-IDW.SA">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="institucional.html">Institucional</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contacto.html">Contacto</a>
-                    </li>
-                </ul>
-            </div>
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a href="index.html">
+            <img src="img/logo.png" alt="Logo de Clinica-IDW.SA">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link active" id="botnav" href="index.html">Inicio</a></li>
+              <li class="nav-item"><a class="nav-link"  id="botnav" href="institucional.html">Institucional</a></li>
+              <li class="nav-item"><a class="nav-link"  id="botnav" href="contacto.html">Contacto</a></li>
+            </ul>
+          </div>
         </div>
+      </div>
     </nav>
-</header>
+  </header>
 
     <main>
         <section class="landing">
@@ -47,133 +41,87 @@
 
         <section class="contact-info">
             <h3>Información de Contacto</h3>
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-            </svg> Teléfono: 345-234-1234</p>
-            <p></p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
-            <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914"/>
-            </svg> Email: info@Clinica-IDW-SA.com</p>
+            <p>📞 Teléfono: 345-234-1234</p>
+            <p>📧 Email: info@Clinica-IDW-SA.com</p>
             <p><a href="contacto.html" class="cta-button">Ver más formas de contacto</a></p>
         </section>
 
-<section class="doctor-info container my-5">
-  <h3 class="mb-4">Nuestros Doctores</h3>
-  <div class="row g-4">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card h-100 doctor-card shadow-sm">
-        <img src="img/doctor1.jpeg" class="card-img-top" alt="Dr. Juan Pérez - Cardiología">
-        <div class="card-body">
-          <h5 class="card-title">Dr. Juan Pérez</h5>
-          <p class="card-text mb-1"><strong>Especialidad:</strong> Cardiología</p>
-          <p class="card-text mb-1"><strong>Teléfono:</strong> 345-234-5678</p>
-          <p class="card-text mb-0"><strong>Obra Social:</strong> Andar</p>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card h-100 doctor-card shadow-sm">
-        <img src="img/doctor2.jpeg" class="card-img-top" alt="Dra. Ana Gómez - Ginecología">
-        <div class="card-body">
-          <h5 class="card-title">Dra. Ana Gómez</h5>
-          <p class="card-text mb-1"><strong>Especialidad:</strong> Ginecología</p>
-          <p class="card-text mb-1"><strong>Teléfono:</strong> 345-234-5679</p>
-          <p class="card-text mb-0"><strong>Obra Social:</strong> Construir Salud</p>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card h-100 doctor-card shadow-sm">
-        <img src="img/doctor3.jpeg" class="card-img-top" alt="Dra. Angela Hamilton - Pediatría">
-        <div class="card-body">
-          <h5 class="card-title">Dra. Angela Hamilton</h5>
-          <p class="card-text mb-1"><strong>Especialidad:</strong> Pediatría</p>
-          <p class="card-text mb-1"><strong>Teléfono:</strong> 345-234-5680</p>
-          <p class="card-text mb-0"><strong>Obra Social:</strong> Cover Salud</p>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card h-100 doctor-card shadow-sm">
-        <img src="img/doctor4.jpeg" class="card-img-top" alt="Dr. Carlos López - Dermatología">
-        <div class="card-body">
-          <h5 class="card-title">Dr. Carlos López</h5>
-          <p class="card-text mb-1"><strong>Especialidad:</strong> Dermatología</p>
-          <p class="card-text mb-1"><strong>Teléfono:</strong> 345-234-5681</p>
-          <p class="card-text mb-0"><strong>Obra Social:</strong> IOMA</p>
-        </div>
-      </div>
-    </div>
+        <h3>Nuestros Doctores</h3>
+        <section class="doctor-info">
+            <div class="doctor">
+                <img src="img/doctor1.jpeg" alt="Dr. Juan Pérez">
+                <h4>Dr. Juan Pérez</h4>
+                <p>Especialidad: Cardiología</p>
+                <p>Teléfono: 345-234-5678</p>
+                <p>Obra Social: Andar</p>
+            </div>
+            <div class="doctor">
+                <img src="img/doctor2.jpeg" alt="Dra. Ana Gómez">
+                <h4>Dra. Ana Gómez</h4>
+                <p>Especialidad: Ginecología</p>
+                <p>Teléfono: 345-234-5679</p>
+                <p>Obra Social: Construir Salud</p>
+            </div>
+            <div class="doctor">
+                <img src="img/doctor3.jpeg" alt="Dra. Angela Hamilton">
+                <h4>Dra. Angela Hamilton</h4>
+                <p>Especialidad: Pediatría</p>
+                <p>Teléfono: 345-234-5680</p>
+                <p>Obra Social: Cover Salud</p>
+            </div>
+            <div class="doctor">
+                <img src="img/doctor4.jpeg" alt="Dr. Carlos López">
+                <h4>Dr. Carlos López</h4>
+                <p>Especialidad: Dermatología</p>
+                <p>Teléfono: 345-234-5681</p>
+                <p>Obra Social: IOMA</p>
+            </div>
         </section>
 
-<section class="Obra-Social container my-5">
-  <h3 class="mb-4 text-center">Obras Sociales</h3>
-  <div class="row g-4">
-
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card h-100 obra-card shadow-sm">
-        <img src="img/andar-logo.png" class="card-img-top p-3" alt="Logo de Andar">
-        <div class="card-body">
-          <h5 class="card-title">Andar</h5>
-          <p class="card-text">Ofrece una completa selección de prestadores en todas las especialidades médicas: cardiología, clínica, dermatología, ginecología, pediatría, entre otras.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card h-100 obra-card shadow-sm">
-        <img src="img/construir-salud-logo.jpg" class="card-img-top p-3" alt="Logo de Construir Salud">
-        <div class="card-body">
-          <h5 class="card-title">Construir Salud</h5>
-          <p class="card-text">Se destaca su Red de Centros Médicos de Atención Primaria propios. Su cabecera es el Sanatorio Franchín en Capital Federal.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card h-100 obra-card shadow-sm">
-        <img src="img/cover-salud-logo.png" class="card-img-top p-3" alt="Logo de Cover Salud">
-        <div class="card-body">
-          <h5 class="card-title">Cover Salud</h5>
-          <p class="card-text">Cuenta con más de 2000 profesionales y convenios con instituciones de salud de prestigio en Argentina.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card h-100 obra-card shadow-sm">
-        <img src="img/ioma-logo.png" class="card-img-top p-3" alt="Logo de IOMA">
-        <div class="card-body">
-          <h5 class="card-title">IOMA</h5>
-          <p class="card-text">Permite consultas online de cartilla médica, farmacias y centros de estudios médicos por localidad y especialidad.</p>
-        </div>
+        <section class="Obra-Social">
+            <h3>Obras Sociales</h3>
+            <div class="obra-social-list">
+                <div class="obra-social-card">
+                    <img src="img/andar-logo.png" alt="Logo de Andar">
+                    <h4>Andar</h4>
+                    <p>En cada uno de sus planes, la obra social Andar ofrece una completa selección de prestadores de salud en todas las especialidades médicas. Por supuesto, se incluye cardiología, clínica, dermatología, ginecología, kinesiología, neurología, nutrición, oftalmología, pediatría, entre otras.</p>
+                </div>
+                <div class="obra-social-card">
+                    <img src="img/construir-salud-logo.jpg" alt="Logo de Construir Salud">
+                    <h4>Construir Salud</h4>
+                    <p>El punto a destacar de la cartilla de Construir Salud es, sin dudas, su Red de Centros Médicos de Atención Primaria Propios. La obra social cuenta con un CeMAP en un gran número de localidades de todo el país La cabecera de esta red de centros médicos es el Sanatorio Franchín en Capital Federal,</p>
+                </div>
+                <div class="obra-social-card">
+                    <img src="img/cover-salud-logo.png" alt="Logo de Cover Salud">
+                    <h4>Cover Salud</h4>
+                    <p>La red prestacional de la empresa Cover cuenta con más de 2000 profesionales y una ámplia lista de convenios con las instituciones de salud más prestigiosas de Argentina.</p>
+                </div>
+                <div class="obra-social-card">
+                    <img src="img/ioma-logo.png" alt="Logo de IOMA">
+                    <h4>IOMA</h4>
+                    <p>A través de un sistema de consultas online, usted podrá acceder a la completa cartilla médica de IOMA. Usted podrá buscar geográfica por localidad y partido, así como por especialidad médica y tipo de institución. También se consulta desde la misma página la red de farmacias y los centros para la realización de estudios médicos.</p>
+                </div>
         </section>
 
             <section class="departments">
                 <h3>Departamentos Médicos</h3>
-                <div class="departments-list row g-4">
-                    <div class="department-card col-12 col-sm-6 col-md-3">
+                <div class="departments-list">
+                    <div class="department-card">
                         <span class="department-icon">❤️</span>
                         <h4>Cardiología</h4>
                         <p>Diagnóstico y tratamiento de enfermedades del corazón.</p>
                     </div>
-                    <div class="department-card col-12 col-sm-6 col-md-3">
+                    <div class="department-card">
                         <span class="department-icon">👶</span>
                         <h4>Pediatría</h4>
                         <p>Atención integral para niños y adolescentes.</p>
                     </div>
-                    <div class="department-card col-12 col-sm-6 col-md-3">
+                    <div class="department-card">
                         <span class="department-icon">🩺</span>
                         <h4>Medicina General</h4>
                         <p>Consultas y chequeos médicos para toda la familia.</p>
                     </div>
-                    <div class="department-card col-12 col-sm-6 col-md-3">
+                    <div class="department-card">
                         <span class="department-icon">🧬</span>
                         <h4>Laboratorio</h4>
                         <p>Análisis clínicos y estudios especializados.</p>
@@ -194,23 +142,9 @@
     </main>
 
 
-<footer class="footer bg-light text-center py-4">
-  <div class="container">
-    <p class="mb-2 text-dark">&copy; 2025 Clínica-IDW-SA.</p>
-    <div class="social-links">
-      <a href="https://www.instagram.com/fcad.uner?igsh=OGF2YXBuNDVjajlp" target="_blank" class="text-dark mx-2">
-        <i class="bi bi-instagram" style="font-size: 1.6rem;"></i>
-      </a>
-      <a href="https://whatsapp.com/channel/0029VaP3mr5CMY0EHtQ2tq3G" target="_blank" class="text-dark mx-2">
-        <i class="bi bi-whatsapp" style="font-size: 1.6rem;"></i>
-      </a>
-      <a href="https://www.youtube.com/watch?v=ULhIeI57B_c&ab_channel=UNERFcad" target="_blank" class="text-dark mx-2">
-        <i class="bi bi-youtube" style="font-size: 1.6rem;"></i>
-      </a>
-    </div>
-  </div>
-</footer>
-
+    <footer>
+        <p>&copy; 2025 Clínica-IDW-SA.</p>
+    </footer>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
