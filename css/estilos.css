@@ -11,6 +11,8 @@ header .navbar {
 .nav-link{
     color: #000 !important;
 }
+}
+
 nav.navbar {
     background-color: #40bad8 !important; 
     border-top: none !important;
@@ -410,6 +412,6 @@ iframe {
     color: #25D366 !important;
 }
 
-.footer .social-links a:hover .bi-youtube {
-    color: #ff0000 !important;
+.footer .social-links a:hover .bi-facebook {
+    color: #3b5998 !important;
 }
