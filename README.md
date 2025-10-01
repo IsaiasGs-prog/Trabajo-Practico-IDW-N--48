@@ -15,4 +15,5 @@
 ## Tecnologías Utilizadas
 - HTML
 - CSS
+- BOOTSTRAP
 
