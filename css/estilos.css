@@ -7,22 +7,8 @@ body {
     line-height: 1.7;
 }
 
-header .navbar {
-.nav-link{
-    color: #000 !important;
-}
-}
 
-nav.navbar {
-    background-color: #40bad8 !important; 
-    border-top: none !important;
-    border-bottom: none !important;
-}
-header nav {
-    border: none !important;
-    box-shadow: none !important;
-}
-header nav > .container-fluid {
+header .navbar {
     background: #40bad8;
     box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
     padding: 0 40px;
@@ -56,10 +42,7 @@ header nav > .container-fluid {
     }
 }
 
-
 header .navbar-brand img {
-header nav div a img {
-    margin-right: 2rem;
     height: 100px; 
     max-width: 220px;
     object-fit: contain;
@@ -79,12 +62,8 @@ header .nav-link {
     line-height: 1;
 }
 
+
 header .nav-link:hover {
-
-
-header nav div div ul li a:hover {
-    color: #1565c0 !important;
-    transition: 0.5s;
     background: #e3eaf3;
     
 }
