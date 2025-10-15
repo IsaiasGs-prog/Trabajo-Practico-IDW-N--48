@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - Clínica IDW.SA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+
+  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <h3 class="text-center mb-4">Inicio de Sesión</h3>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="user" class="form-label">Usuario</label>
+        <input type="text" id="user" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="pass" class="form-label">Contraseña</label>
+        <input type="password" id="pass" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+    </form>
+    <p class="text-center text-muted mt-3 small">Usuario: <strong>admin</strong> / Contraseña: <strong>12345</strong></p>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('user').value;
+      const pass = document.getElementById('pass').value;
+
+      if (user === "admin" && pass === "12345") {
+        localStorage.setItem("logueado", "true");
+        window.location.href = "admin.html";
+      } else {
+        alert("Usuario o contraseña incorrectos");
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -10,6 +10,11 @@
 <body class="container my-5">
   <h2 class="text-center mb-4">Administración de Médicos</h2>
 
+  <div class="d-flex justify-content-end mb-3">
+    <button id="logout" class="btn btn-outline-danger">Cerrar sesión</button>
+  </div>
+
+
   <form id="form-medico" class="row g-3 mb-4">
     <div class="col-md-3">
       <label class="form-label">Nombre</label>
@@ -44,5 +49,12 @@
     </thead>
     <tbody id="tabla-medicos"></tbody>
   </table>
+  <script>
+  document.getElementById("logout").addEventListener("click", () => {
+    localStorage.removeItem("logueado");
+    window.location.href = "login.html";
+  });
+</script>
+
 </body>
 </html>
