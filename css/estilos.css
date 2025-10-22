@@ -382,3 +382,20 @@ iframe {
 .footer .social-links a:hover .bi-youtube {
     color: #ff0000 !important;
 }
+
+
+.login-container {
+        max-width: 400px; 
+        width: 100%;
+        border-radius: 12px;
+        background-color: #ffffff;
+        border: 1px solid #e3eaf3;
+    }
+    .btn-primary {
+        background-color: #40bad8 !important; /* Color de tu header */
+        border-color: #40bad8 !important;
+    }
+    .btn-primary:hover {
+        background-color: #369cbb !important;
+        border-color: #369cbb !important;
+    }
