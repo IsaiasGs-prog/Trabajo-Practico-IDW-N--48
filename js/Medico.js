@@ -1,19 +1,22 @@
 const DEFAULT_IMG_URL = "https://i.pinimg.com/736x/2e/7f/f9/2e7ff930420f590aa6d785aec296ac3b.jpg";
 
 export const DOCTORES_INICIALES = [
-  { id: 1, nombre: "Dr. Juan Pérez", especialidad: "Cardiología", telefono: "345-234-5678", obraSocial: "Andar", img: "https://i.pinimg.com/736x/2e/7f/f9/2e7ff930420f590aa6d785aec296ac3b.jpg" },
-  { id: 2, nombre: "Dra. Ana Gómez", especialidad: "Ginecología", telefono: "345-234-5679", obraSocial: "Construir Salud", img: "https://i.pinimg.com/736x/41/30/b4/4130b4047f433315bf1afcdb4c27a206.jpg" },
-  { id: 3, nombre: "Dra. Angela Hamilton", especialidad: "Pediatría", telefono: "345-234-5680", obraSocial: "Cover Salud", img: "https://i.pinimg.com/736x/e7/c6/cf/e7c6cfddd6154db93afd2611355a49c5.jpg" },
-  { id: 4, nombre: "Dr. Carlos López", especialidad: "Dermatología", telefono: "345-234-5681", obraSocial: "IOMA", img: "https://i.pinimg.com/736x/57/59/83/57598351d2ab9824b08717160ba1c992.jpg" }
+  { id: 1, nombre: "Dr. Juan Pérez", especialidad: "Cardiología", telefono: "345-234-5678", obraSocial: "Andar", costoConsulta: 7500, img: "https://i.pinimg.com/736x/2e/7f/f9/2e7ff930420f590aa6d785aec296ac3b.jpg" },
+  { id: 2, nombre: "Dra. Ana Gómez", especialidad: "Ginecología", telefono: "345-234-5679", obraSocial: "Construir Salud", costoConsulta: 6800, img: "https://i.pinimg.com/736x/41/30/b4/4130b4047f433315bf1afcdb4c27a206.jpg" },
+  { id: 3, nombre: "Dra. Angela Hamilton", especialidad: "Pediatría", telefono: "345-234-5680", obraSocial: "Cover Salud", costoConsulta: 5500, img: "https://i.pinimg.com/736x/e7/c6/cf/e7c6cfddd6154db93afd2611355a49c5.jpg" },
+  { id: 4, nombre: "Dr. Carlos López", especialidad: "Dermatología", telefono: "345-234-5681", obraSocial: "IOMA", costoConsulta: 8200, img: "https://i.pinimg.com/736x/57/59/83/57598351d2ab9824b08717160ba1c992.jpg" }
 ];
-
 
 if (!localStorage.getItem("medicos")) {
   localStorage.setItem("medicos", JSON.stringify(DOCTORES_INICIALES));
 }
 
-function obtenerMedicos() {
+export function obtenerMedicos() {
   return JSON.parse(localStorage.getItem("medicos")) || [];
+}
+
+export function obtenerMedicoPorId(id) {
+  return obtenerMedicos().find(m => m.id === parseInt(id)); 
 }
 
 function guardarMedicos(lista) {

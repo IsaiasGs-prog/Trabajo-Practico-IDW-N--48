@@ -3,18 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Administración Médicos - Clínica IDW.SA</title>
+  <title>Panel de Administración - Clínica IDW.SA</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script type="module" src="js/Medico.js" defer></script> 
   <link rel="stylesheet" href="css/estilos.css">  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  
   <script type="module" src="js/main.js" defer></script> 
+  <script type="module" src="js/Medico.js" defer></script>
+  <script type="module" src="js/adminReservas.js" defer></script> 
+  <script type="module" src="js/Usuarios.js" defer></script> 
+  <script type="module" src="js/ObraSocialAdmin.js" defer></script> 
   
   <script type="module">
-    import { isAuthenticated } from './js/main.js'; 
+    import { isAuthenticated, logout } from './js/auth.js'; 
+
     function checkAuth() {
         if (!isAuthenticated()) {
             window.location.replace('login.html');
+        } else {
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
         }
     }
     checkAuth(); 
@@ -30,80 +40,192 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="institucional.html">Institucional</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contacto.html">Contacto</a>
-                            </li>
-                            
-                            <div id="navbar-dynamic-items" class="d-flex">
-                                </div>
-                        </ul>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservas.html">Reservar Turno</a></li> <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <div id="navbar-dynamic-items" class="d-flex align-items-center"></div>
+                </ul>
             </div>
         </div>
     </nav>
 </header>
 
 <main class="container my-5">
-    <h1 class="mb-4 text-primary">Panel de Administración de Médicos</h1>
-
-    <input type="hidden" id="medico-id" value=""> 
-
-    <form id="form-medico" class="row g-3 mb-5 p-4 border rounded shadow-sm bg-light">
-        <h2 class="h5 text-secondary">Datos del Profesional</h2>
-        
-        <div class="col-md-6">
-            <label for="nombre" class="form-label">Nombre Completo</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" required>
-        </div>
-        <div class="col-md-6">
-            <label for="especialidad" class="form-label">Especialidad</label>
-            <input type="text" class="form-control" id="especialidad" name="especialidad" required>
-        </div>
-
-        <div class="col-md-4">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" required>
-        </div>
-        <div class="col-md-4">
-            <label for="obraSocial" class="form-label">Obra Social</label>
-            <input type="text" class="form-control" id="obraSocial" name="obraSocial" required>
-        </div>
-        
-        <div class="col-md-4">
-            <label for="img" class="form-label">URL de la Foto (Link)</label>
-            <input type="url" class="form-control" id="img" name="img" placeholder="Ej: https://unaimagen.com/foto.jpg">
-            <small class="form-text text-muted">Opcional. Si se deja vacío, se usará una imagen por defecto.</small>
-        </div>
-
-        <div class="col-12 d-flex justify-content-end">
-            <button type="submit" id="btn-submit" class="btn btn-primary btn-lg mt-3">Agregar</button>
-        </div>
-    </form>
     
-    <h2 class="h4 mb-3 text-secondary">Listado de Profesionales</h2>
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead class="table-primary">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Especialidad</th>
-                    <th>Teléfono</th>
-                    <th>Obra Social</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-medicos">
-                </tbody>
-        </table>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-primary"><i class="bi bi-speedometer2"></i> Panel de Administración</h1>
+        <button id="logout-btn" class="btn btn-danger fw-bold"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</button>
+    </div>
+    
+    <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="medicos-tab" data-bs-toggle="tab" data-bs-target="#medicos" type="button" role="tab" aria-controls="medicos" aria-selected="true"><i class="bi bi-person-badge"></i> Médicos (CRUD Local)</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reservas-tab" data-bs-toggle="tab" data-bs-target="#reservas" type="button" role="tab" aria-controls="reservas" aria-selected="false"><i class="bi bi-calendar-check"></i> Reservas/Pacientes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="os-tab" data-bs-toggle="tab" data-bs-target="#obrassociales" type="button" role="tab" aria-controls="obrassociales" aria-selected="false"><i class="bi bi-wallet2"></i> Obras Sociales (CRUD Local)</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button" role="tab" aria-controls="usuarios" aria-selected="false"><i class="bi bi-people"></i> Usuarios (API Externa)</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="adminTabsContent">
+        
+        <div class="tab-pane fade show active" id="medicos" role="tabpanel" aria-labelledby="medicos-tab">
+            <h2 class="h4 text-secondary mb-3">Gestión de Médicos</h2>
+            <form id="form-medico" class="row g-3 mb-4 p-3 border rounded shadow-sm">
+                <input type="hidden" id="medico-id">
+                <div class="col-md-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Especialidad</label>
+                    <input type="text" class="form-control" name="especialidad" id="especialidad" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Costo ($)</label>
+                    <input type="number" step="100" class="form-control" name="costoConsulta" id="costoConsulta" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Obra Social</label>
+                    <input type="text" class="form-control" name="obraSocial" id="obraSocial" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" name="telefono" id="telefono" required>
+                </div>
+                <div class="col-md-10">
+                    <label class="form-label">URL Imagen (Opcional)</label>
+                    <input type="url" class="form-control" name="img" id="img">
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-success w-100 mt-md-4" id="btn-submit">Agregar</button>
+                </div>
+            </form>
+            
+            <h5 class="mt-4">Listado de Médicos</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Especialidad</th>
+                            <th>Costo ($)</th>
+                            <th>Obra Social</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-medicos"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
+            <h2 class="h4 text-secondary mb-3">Reservas Pendientes/Confirmadas</h2>
+            <div class="alert alert-warning small"><i class="bi bi-exclamation-triangle-fill"></i> El administrador puede **cancelar** las reservas. La creación de reservas solo se hace desde la página pública (`reservas.html`).</div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Paciente (DNI)</th>
+                            <th>Fecha Turno</th>
+                            <th>Médico</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-reservas">
+                        </tbody>
+                </table>
+            </div>
+
+            <h2 class="h4 text-secondary mt-5 mb-3">Lista de Pacientes Únicos</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-info">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>DNI</th>
+                            <th>Última Reserva</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-pacientes">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="tab-pane fade" id="obrassociales" role="tabpanel" aria-labelledby="os-tab">
+            <h2 class="h4 text-secondary mb-3">Gestión de Obras Sociales</h2>
+            <form id="form-obra-social" class="row g-3 mb-4 p-3 border rounded shadow-sm">
+                <input type="hidden" id="os-id">
+                <div class="col-md-3">
+                    <label class="form-label">Nombre OS</label>
+                    <input type="text" class="form-control" id="os-nombre" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Descuento (%)</label>
+                    <input type="number" class="form-control" id="os-descuento" min="0" max="100" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Acepta Especialidades (Separar con coma)</label>
+                    <input type="text" class="form-control" id="os-acepta" required placeholder="Ej: Cardiología, Pediatría">
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-info text-white w-100 mt-md-4" id="btn-os-submit">Agregar Obra Social</button>
+                </div>
+            </form>
+            
+            <h5 class="mt-4">Listado de Obras Sociales</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-info">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descuento</th>
+                            <th>Acepta Especialidades</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-obras-sociales"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
+            <h2 class="h4 text-secondary mb-3">Listado de Usuarios</h2>
+            <div class="alert alert-info small" role="alert">
+                <i class="bi bi-info-circle-fill"></i> **Requisito TFI:** Este listado se obtiene de `https://dummyjson.com/users` y solo muestra datos no sensibles.
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Foto</th>
+                            <th>Usuario</th>
+                            <th>Nombre Completo</th>
+                            <th>Email</th>
+                            <th>Universidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-usuarios">
+                        </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </main>
+
 
 <footer class="footer bg-light text-center py-4">
   <div class="container">

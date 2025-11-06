@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión - Clínica IDW.SA</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css"> </head>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
 
   <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
@@ -13,27 +14,31 @@
         <img src="img/logo.png" alt="Logo IDW.SA" style="max-height: 80px;">
     </div>
     <h3 class="text-center mb-4 text-primary">Acceso al Panel de Administración</h3>
+
     <form id="loginForm">
-          <div class="mb-3">
-            <label for="user" class="form-label text-secondary"><i class="bi bi-person-circle"></i> Usuario</label>
-            <input type="text" id="user" class="form-control" required value="kminchelle"> 
-          </div>
-          <div class="mb-3">
-            <label for="pass" class="form-label text-secondary"><i class="bi bi-lock-fill"></i> Contraseña</label>
-            <input type="password" id="pass" class="form-control" required value="0lelplR">
-          </div>
-          <button type="submit" class="btn btn-primary w-100 mt-3 fw-bold" id="login-button">
-              <span id="button-text"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</span>
-              <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="login-spinner"></span>
-          </button>
-        </form>
-        
-        <p class="text-center text-muted mt-4 small">
-            Credenciales de prueba: Usuario: <strong>kminchelle</strong> / Contraseña: <strong>0lelplR</strong>
-        </p>
+      <div class="mb-3">
+        <label for="user" class="form-label text-secondary"><i class="bi bi-person-circle"></i> Usuario</label>
+        <input type="text" id="user" class="form-control" required value="emilys">
+      </div>
+      <div class="mb-3">
+        <label for="pass" class="form-label text-secondary"><i class="bi bi-lock-fill"></i> Contraseña</label>
+        <input type="password" id="pass" class="form-control" required value="emilyspass">
+      </div>
+      <button type="submit" class="btn btn-primary w-100 mt-3 fw-bold" id="login-button">
+        <span id="button-text"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</span>
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="login-spinner"></span>
+      </button>
+    </form>
+
+    <div id="login-error" class="text-danger text-center mt-3 fw-bold d-none"></div>
+
+    <p class="text-center text-muted mt-4 small">
+      Credenciales de prueba: Usuario: <strong>emilys</strong> / Contraseña: <strong>emilyspass</strong>
+    </p>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-  <script type="module" src="js/main.js"></script> 
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
