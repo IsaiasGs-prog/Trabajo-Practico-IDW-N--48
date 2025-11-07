@@ -6,26 +6,21 @@ export const OBRAS_SOCIALES_INICIALES = [
     { id: 105, nombre: "Particular", descuento: 0.00, acepta: ["Todas"] } 
 ];
 
-if (!localStorage.getItem("obrasSociales")) {
-    localStorage.setItem("obrasSociales", JSON.stringify(OBRAS_SOCIALES_INICIALES));
+const OBRAS_SOCIALES_KEY = "obrasSociales";
+
+if (!localStorage.getItem(OBRAS_SOCIALES_KEY)) {
+    localStorage.setItem(OBRAS_SOCIALES_KEY, JSON.stringify(OBRAS_SOCIALES_INICIALES));
 }
 
 export function obtenerObrasSociales() {
-    return JSON.parse(localStorage.getItem("obrasSociales")) || [];
+    return JSON.parse(localStorage.getItem(OBRAS_SOCIALES_KEY)) || [];
 }
 
 export function guardarObrasSociales(lista) {
-    localStorage.setItem("obrasSociales", JSON.stringify(lista));
-}
-
-
-export function obtenerObrasSociales() {
-    return JSON.parse(localStorage.getItem("obrasSociales")) || [];
+    localStorage.setItem(OBRAS_SOCIALES_KEY, JSON.stringify(lista));
 }
 
 export function obtenerObraSocialPorId(id) {
-    return obtenerObrasSociales().find(os => os.id === id);
+    const numId = parseInt(id);
+    return obtenerObrasSociales().find(os => os.id === numId);
 }
-
-// Otras funciones CRUD (agregar, actualizar, eliminar) para el futuro panel Admin
-// ...

@@ -4,7 +4,7 @@ import {
     OBRAS_SOCIALES_INICIALES 
 } from './ObraSocial.js'; 
 
-const DEFAULT_ACEPTA = ["Medicina General"]; 
+const DEFAULT_ACEPTA = ["Medicina General"];
 
 function mostrarObrasSociales() {
     const tabla = document.getElementById("tabla-obras-sociales");
@@ -28,28 +28,39 @@ function mostrarObrasSociales() {
 
 function agregarOActualizarOS(osData) {
     let lista = obtenerObrasSociales();
-    const index = lista.findIndex(os => os.id === osData.id);
     osData.nombre = osData.nombre.trim();
-    osData.descuento = parseFloat(osData.descuento) || 0;
-    osData.acepta = osData.acepta.split(',').map(s => s.trim()).filter(s => s.length > 0);
-    if (osData.acepta.length === 0) {
-        osData.acepta = DEFAULT_ACEPTA;
-    }
+    osData.descuento = parseFloat(osData.descuento); 
+    osData.acepta = osData.acepta
+        .split(',')
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
     
+    const index = lista.findIndex(os => os.id === osData.id);
+
     if (index !== -1) {
-        lista[index] = osData;
+        lista[index].nombre = osData.nombre;
+        lista[index].descuento = osData.descuento;
+        lista[index].acepta = osData.acepta;
+        alert(`Obra Social ${osData.nombre} modificada exitosamente.`);
     } else {
-        osData.id = Date.now(); 
-        lista.push(osData);
+        const newId = lista.length > 0 ? Math.max(...lista.map(os => os.id)) + 1 : 101;
+        lista.push({ 
+            id: newId, 
+            nombre: osData.nombre, 
+            descuento: osData.descuento, 
+            acepta: osData.acepta.length > 0 ? osData.acepta : DEFAULT_ACEPTA
+        });
+        alert(`Obra Social ${osData.nombre} agregada exitosamente.`);
     }
-    
+
     guardarObrasSociales(lista);
     mostrarObrasSociales();
 }
 
 function eliminarOS(id) {
     if (confirm("¿Estás seguro de eliminar esta Obra Social?")) {
-        const lista = obtenerObrasSociales().filter(os => os.id !== id);
+        let lista = obtenerObrasSociales();
+        lista = lista.filter(os => os.id !== id);
         guardarObrasSociales(lista);
         mostrarObrasSociales();
     }
@@ -62,35 +73,41 @@ function cargarOSParaEdicion(id) {
     document.getElementById('os-nombre').value = os.nombre;
     document.getElementById('os-descuento').value = (os.descuento * 100).toFixed(0); 
     document.getElementById('os-acepta').value = os.acepta.join(', ');
-    
     document.getElementById('btn-os-submit').textContent = "Guardar Cambios";
+    const triggerEl = document.querySelector('#obras-sociales-tab');
+    if (triggerEl) {
+        new bootstrap.Tab(triggerEl).show();
+    }
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    mostrarObrasSociales();
-
-    const form = document.getElementById("form-obra-social");
-    if (form) {
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            
-            const osId = document.getElementById('os-id').value;
-            
-            const osData = {
-                id: osId ? parseInt(osId) : null,
-                nombre: form['os-nombre'].value,
-                descuento: parseFloat(form['os-descuento'].value) / 100, 
-                acepta: form['os-acepta'].value 
-            };
-            
-            agregarOActualizarOS(osData);
-            form.reset();
-            document.getElementById('os-id').value = '';
-            document.getElementById('btn-os-submit').textContent = "Agregar Obra Social";
-        });
+    if (document.getElementById("tabla-obras-sociales")) {
+        mostrarObrasSociales();
+        const form = document.getElementById("form-obra-social");
+        const submitButton = document.getElementById('btn-os-submit');
+        if (form) {
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                
+                const osId = document.getElementById('os-id').value;
+                
+                const osData = {
+                    id: osId ? parseInt(osId) : null,
+                    nombre: form['os-nombre'].value,
+                    descuento: parseFloat(form['os-descuento'].value) / 100, 
+                    acepta: form['os-acepta'].value 
+                };
+                
+                agregarOActualizarOS(osData);
+                form.reset();
+                document.getElementById('os-id').value = "";
+                submitButton.textContent = "Agregar";
+            });
+        }
     }
 });
+
 
 window.borrarOS = eliminarOS;
 window.cargarOSParaEdicion = cargarOSParaEdicion;

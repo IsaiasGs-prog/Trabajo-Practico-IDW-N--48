@@ -4,16 +4,17 @@ function mostrarReservas() {
     const tabla = document.getElementById("tabla-reservas");
     if (!tabla) return;
     
-    const lista = obtenerReservas();
+    const lista = obtenerReservas()
+        .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion)); 
 
     tabla.innerHTML = lista.map(r => `
         <tr id="reserva-${r.id}">
             <td>${r.id}</td>
             <td>${r.pacienteNombre} (${r.documento})</td>
-            <td>${new Date(r.fechaTurno).toLocaleString()}</td>
+            <td>${new Date(r.fechaTurno).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' })}</td>
             <td>${r.medicoNombre} (${r.especialidad})</td>
             <td>$${r.costo.toFixed(2)}</td>
-            <td><span class="badge ${r.estado === 'Confirmada' ? 'bg-success' : 'bg-danger'}">${r.estado}</span></td>
+            <td><span class="badge ${r.estado.includes('Confirmada') ? 'bg-success' : 'bg-danger'}">${r.estado}</span></td>
             <td>
                 <button class="btn btn-danger btn-sm" onclick="cancelarReserva(${r.id})"><i class="bi bi-x-circle"></i> Cancelar</button>
             </td>
@@ -28,7 +29,7 @@ function cancelarReserva(id) {
         if (index !== -1) {
             lista[index].estado = 'Cancelada por Admin';
             guardarReservas(lista);
-            mostrarReservas();
+            mostrarReservas(); 
         }
     }
 }
@@ -48,10 +49,19 @@ function mostrarPacientes() {
     `).join("");
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
-    mostrarReservas();
-    mostrarPacientes();
+    const reservasTabTrigger = document.getElementById('reservas-tab');
+    if (reservasTabTrigger) {
+        if (reservasTabTrigger.classList.contains('active')) {
+            mostrarReservas();
+            mostrarPacientes();
+        }
+        reservasTabTrigger.addEventListener('shown.bs.tab', () => {
+            mostrarReservas();
+            mostrarPacientes();
+        });
+    }
 });
+
 
 window.cancelarReserva = cancelarReserva;

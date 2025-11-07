@@ -9,6 +9,21 @@ export function isAuthenticated() {
   return sessionStorage.getItem(AUTH_KEY) !== null;
 }
 
+function toggleLoading(submitButton, isLoading) {
+  const spinner = submitButton.querySelector('#login-spinner');
+  const buttonText = submitButton.querySelector('#button-text');
+  
+  if (isLoading) {
+    submitButton.disabled = true;
+    buttonText.classList.add('d-none');
+    spinner.classList.remove('d-none');
+  } else {
+    submitButton.disabled = false;
+    buttonText.classList.remove('d-none');
+    spinner.classList.add('d-none');
+  }
+}
+
 async function handleLogin(e) {
   e.preventDefault();
 
@@ -16,19 +31,13 @@ async function handleLogin(e) {
   const pass = document.getElementById('pass').value.trim();
   const errorDiv = document.getElementById('login-error');
   const submitButton = document.getElementById('login-button');
-  const spinner = submitButton.querySelector('#login-spinner');
-  const buttonText = submitButton.querySelector('#button-text');
 
   errorDiv.classList.add('d-none');
   errorDiv.textContent = '';
 
-  submitButton.disabled = true;
-  buttonText.classList.add('d-none');
-  spinner.classList.remove('d-none');
+  toggleLoading(submitButton, true);
 
   try {
-    console.log("Enviando login con:", { username: user, password: pass });
-
     const response = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -41,21 +50,24 @@ async function handleLogin(e) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || 'Credenciales incorrectas');
+      if (data.message) {
+        errorDiv.textContent = `Error de inicio de sesión: ${data.message}`;
+      } else {
+        errorDiv.textContent = 'Error de inicio de sesión. Credenciales incorrectas.';
+      }
+      errorDiv.classList.remove('d-none');
+      return;
     }
 
     sessionStorage.setItem(AUTH_KEY, data.token);
-    window.location.href = 'admin.html';
+    window.location.replace('admin.html'); 
 
   } catch (error) {
-    console.error("Error al iniciar sesión:", error);
-    errorDiv.textContent = `⚠️ ${error.message}. Intenta nuevamente.`;
+    console.error("Error en la solicitud de login:", error);
+    errorDiv.textContent = 'Ocurrió un error de conexión. Intente más tarde.';
     errorDiv.classList.remove('d-none');
-    document.getElementById('pass').value = '';
   } finally {
-    submitButton.disabled = false;
-    buttonText.classList.remove('d-none');
-    spinner.classList.add('d-none');
+    toggleLoading(submitButton, false);
   }
 }
 
@@ -63,44 +75,45 @@ function updateNavbar() {
   const navItemsContainer = document.getElementById('navbar-dynamic-items');
   if (!navItemsContainer) return;
 
-  navItemsContainer.innerHTML = '';
+  let dynamicItems = navItemsContainer.querySelectorAll('.dynamic-nav-item');
+  dynamicItems.forEach(item => item.remove());
 
   if (isAuthenticated()) {
-    navItemsContainer.innerHTML += `
-      <li class="nav-item">
+    navItemsContainer.insertAdjacentHTML('beforeend', `
+      <li class="nav-item dynamic-nav-item">
         <a class="nav-link text-success fw-bold" href="admin.html">
           <i class="bi bi-shield-lock-fill"></i> Panel Admin
         </a>
       </li>
-    `;
+    `);
 
     const logoutItem = document.createElement('li');
-    logoutItem.className = 'nav-item';
+    logoutItem.className = 'nav-item dynamic-nav-item';
     logoutItem.innerHTML = `
       <button id="nav-logout-btn" class="btn btn-sm btn-danger mt-2 mt-md-0 ms-md-2">
         <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
       </button>
     `;
     navItemsContainer.appendChild(logoutItem);
+
     document.getElementById('nav-logout-btn').addEventListener('click', logout);
   } else {
-    navItemsContainer.innerHTML += `
-      <li class="nav-item">
+    navItemsContainer.insertAdjacentHTML('beforeend', `
+      <li class="nav-item dynamic-nav-item">
         <a class="nav-link text-primary fw-bold" href="login.html">
           <i class="bi bi-person-circle"></i> Login
         </a>
       </li>
-    `;
+    `);
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', handleLogin);
-  }
 
-  if (document.getElementById('navbar-dynamic-items')) {
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
     updateNavbar();
-  }
 });

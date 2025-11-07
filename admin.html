@@ -13,21 +13,15 @@
   <script type="module" src="js/adminReservas.js" defer></script> 
   <script type="module" src="js/Usuarios.js" defer></script> 
   <script type="module" src="js/ObraSocialAdmin.js" defer></script> 
-  
-  <script type="module">
-    import { isAuthenticated, logout } from './js/auth.js'; 
 
-    function checkAuth() {
+  <script type="module">
+    import { isAuthenticated } from './js/main.js'; 
+
+    document.addEventListener('DOMContentLoaded', () => {
         if (!isAuthenticated()) {
             window.location.replace('login.html');
-        } else {
-            const logoutBtn = document.getElementById('logout-btn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', logout);
-            }
         }
-    }
-    checkAuth(); 
+    });
   </script>
 </head>
 <body>
@@ -41,235 +35,186 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="reservas.html">Reservar Turno</a></li> <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                    <div id="navbar-dynamic-items" class="d-flex align-items-center"></div>
-                </ul>
+                <ul class="navbar-nav ms-auto" id="navbar-dynamic-items">
+                    </ul>
             </div>
         </div>
     </nav>
 </header>
 
-<main class="container my-5">
-    
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="text-primary"><i class="bi bi-speedometer2"></i> Panel de Administración</h1>
-        <button id="logout-btn" class="btn btn-danger fw-bold"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</button>
-    </div>
-    
+<main class="container mt-5">
+    <h1 class="mb-4">Panel de Administración</h1>
+
     <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="medicos-tab" data-bs-toggle="tab" data-bs-target="#medicos" type="button" role="tab" aria-controls="medicos" aria-selected="true"><i class="bi bi-person-badge"></i> Médicos (CRUD Local)</button>
+            <button class="nav-link active" id="medicos-tab" data-bs-toggle="tab" data-bs-target="#medicos-content" type="button" role="tab" aria-controls="medicos-content" aria-selected="true"><i class="bi bi-person-badge"></i> Médicos</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="reservas-tab" data-bs-toggle="tab" data-bs-target="#reservas" type="button" role="tab" aria-controls="reservas" aria-selected="false"><i class="bi bi-calendar-check"></i> Reservas/Pacientes</button>
+            <button class="nav-link" id="reservas-tab" data-bs-toggle="tab" data-bs-target="#reservas-content" type="button" role="tab" aria-controls="reservas-content" aria-selected="false"><i class="bi bi-calendar-check"></i> Reservas</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="os-tab" data-bs-toggle="tab" data-bs-target="#obrassociales" type="button" role="tab" aria-controls="obrassociales" aria-selected="false"><i class="bi bi-wallet2"></i> Obras Sociales (CRUD Local)</button>
+            <button class="nav-link" id="obras-sociales-tab" data-bs-toggle="tab" data-bs-target="#obras-sociales-content" type="button" role="tab" aria-controls="obras-sociales-content" aria-selected="false"><i class="bi bi-hospital"></i> Obras Sociales</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button" role="tab" aria-controls="usuarios" aria-selected="false"><i class="bi bi-people"></i> Usuarios (API Externa)</button>
+            <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios-content" type="button" role="tab" aria-controls="usuarios-content" aria-selected="false"><i class="bi bi-people"></i> Usuarios</button>
         </li>
     </ul>
 
     <div class="tab-content" id="adminTabsContent">
         
-        <div class="tab-pane fade show active" id="medicos" role="tabpanel" aria-labelledby="medicos-tab">
-            <h2 class="h4 text-secondary mb-3">Gestión de Médicos</h2>
-            <form id="form-medico" class="row g-3 mb-4 p-3 border rounded shadow-sm">
-                <input type="hidden" id="medico-id">
-                <div class="col-md-3">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" required>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Especialidad</label>
-                    <input type="text" class="form-control" name="especialidad" id="especialidad" required>
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label">Costo ($)</label>
-                    <input type="number" step="100" class="form-control" name="costoConsulta" id="costoConsulta" required>
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label">Obra Social</label>
-                    <input type="text" class="form-control" name="obraSocial" id="obraSocial" required>
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" name="telefono" id="telefono" required>
-                </div>
-                <div class="col-md-10">
-                    <label class="form-label">URL Imagen (Opcional)</label>
-                    <input type="url" class="form-control" name="img" id="img">
-                </div>
-                <div class="col-md-2 d-grid">
-                    <button type="submit" class="btn btn-success w-100 mt-md-4" id="btn-submit">Agregar</button>
-                </div>
+        <div class="tab-pane fade show active" id="medicos-content" role="tabpanel" aria-labelledby="medicos-tab">
+            <h2>Gestión de Médicos</h2>
+            <form id="form-medico" class="row g-3 mb-4 p-3 border rounded shadow-sm bg-light">
+              <input type="hidden" id="medico-id" name="medico-id">
+              <div class="col-md-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+              </div>
+              <div class="col-md-3">
+                <label for="especialidad" class="form-label">Especialidad</label>
+                <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+              </div>
+              <div class="col-md-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" required>
+              </div>
+              <div class="col-md-3">
+                <label for="obraSocial" class="form-label">Obra Social (ej: Andar, IOMA)</label>
+                <input type="text" class="form-control" id="obraSocial" name="obraSocial" required>
+              </div>
+              <div class="col-md-4">
+                <label for="costoConsulta" class="form-label">Costo Consulta ($)</label>
+                <input type="number" step="0.01" class="form-control" id="costoConsulta" name="costoConsulta" required>
+              </div>
+              <div class="col-md-6">
+                <label for="img" class="form-label">URL Foto (Opcional)</label>
+                <input type="url" class="form-control" id="img" name="img">
+              </div>
+              <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" id="btn-medico-submit" class="btn btn-success w-100">Agregar</button>
+              </div>
             </form>
-            
-            <h5 class="mt-4">Listado de Médicos</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Especialidad</th>
-                            <th>Costo ($)</th>
-                            <th>Obra Social</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-medicos"></tbody>
-                </table>
-            </div>
+
+            <table class="table table-bordered table-striped">
+              <thead class="table-primary">
+                <tr>
+                  <th>ID</th>
+                  <th>Foto</th>
+                  <th>Nombre</th>
+                  <th>Especialidad</th>
+                  <th>Teléfono</th>
+                  <th>Obra Social</th>
+                  <th>Costo</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-medicos">
+                </tbody>
+            </table>
         </div>
 
-        <div class="tab-pane fade" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
-            <h2 class="h4 text-secondary mb-3">Reservas Pendientes/Confirmadas</h2>
-            <div class="alert alert-warning small"><i class="bi bi-exclamation-triangle-fill"></i> El administrador puede **cancelar** las reservas. La creación de reservas solo se hace desde la página pública (`reservas.html`).</div>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>ID</th>
-                            <th>Paciente (DNI)</th>
-                            <th>Fecha Turno</th>
-                            <th>Médico</th>
-                            <th>Costo</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-reservas">
-                        </tbody>
-                </table>
-            </div>
+        <div class="tab-pane fade" id="reservas-content" role="tabpanel" aria-labelledby="reservas-tab">
+            
+            <h2 class="mt-4">Listado de Reservas</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="table-success">
+                    <tr>
+                        <th>ID Reserva</th>
+                        <th>Paciente (DNI)</th>
+                        <th>Fecha/Hora Turno</th>
+                        <th>Médico (Especialidad)</th>
+                        <th>Costo</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-reservas">
+                    </tbody>
+            </table>
 
-            <h2 class="h4 text-secondary mt-5 mb-3">Lista de Pacientes Únicos</h2>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead class="table-info">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>DNI</th>
-                            <th>Última Reserva</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-pacientes">
-                        </tbody>
-                </table>
-            </div>
+            <h2 class="mt-5">Listado de Pacientes Únicos</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="table-info">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Última Reserva</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-pacientes">
+                    </tbody>
+            </table>
         </div>
         
-        <div class="tab-pane fade" id="obrassociales" role="tabpanel" aria-labelledby="os-tab">
-            <h2 class="h4 text-secondary mb-3">Gestión de Obras Sociales</h2>
-            <form id="form-obra-social" class="row g-3 mb-4 p-3 border rounded shadow-sm">
-                <input type="hidden" id="os-id">
+        <div class="tab-pane fade" id="obras-sociales-content" role="tabpanel" aria-labelledby="obras-sociales-tab">
+            <h2 class="mt-4">Gestión de Obras Sociales</h2>
+            <form id="form-obra-social" class="row g-3 mb-4 p-3 border rounded shadow-sm bg-light">
+                <input type="hidden" id="os-id" name="os-id">
                 <div class="col-md-3">
-                    <label class="form-label">Nombre OS</label>
-                    <input type="text" class="form-control" id="os-nombre" required>
+                    <label for="os-nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="os-nombre" name="os-nombre" required>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Descuento (%)</label>
-                    <input type="number" class="form-control" id="os-descuento" min="0" max="100" required>
+                    <label for="os-descuento" class="form-label">Descuento (%)</label>
+                    <input type="number" min="0" max="100" class="form-control" id="os-descuento" name="os-descuento" required>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Acepta Especialidades (Separar con coma)</label>
-                    <input type="text" class="form-control" id="os-acepta" required placeholder="Ej: Cardiología, Pediatría">
+                    <label for="os-acepta" class="form-label">Especialidades (separadas por coma)</label>
+                    <input type="text" class="form-control" id="os-acepta" name="os-acepta" required placeholder="Cardiología, Pediatría">
                 </div>
-                <div class="col-md-2 d-grid">
-                    <button type="submit" class="btn btn-info text-white w-100 mt-md-4" id="btn-os-submit">Agregar Obra Social</button>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" id="btn-os-submit" class="btn btn-primary w-100">Agregar</button>
                 </div>
             </form>
-            
-            <h5 class="mt-4">Listado de Obras Sociales</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead class="table-info">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Descuento</th>
-                            <th>Acepta Especialidades</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-obras-sociales"></tbody>
-                </table>
-            </div>
+
+            <table class="table table-bordered table-striped">
+                <thead class="table-warning">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descuento</th>
+                        <th>Especialidades Aceptadas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-obras-sociales">
+                    </tbody>
+            </table>
+        </div>
+        
+        <div class="tab-pane fade" id="usuarios-content" role="tabpanel" aria-labelledby="usuarios-tab">
+            <h2 class="mt-4">Listado de Usuarios</h2>
+            <p class="alert alert-info">Estos usuarios son recuperados de la API de DummyJSON para demostración. No se muestran datos sensibles. (Requiere Login)</p>
+            <table class="table table-bordered table-striped">
+                <thead class="table-danger">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Completo</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Email</th>
+                        <th>Fecha de Nacimiento</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-usuarios">
+                    </tbody>
+            </table>
         </div>
 
-        <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
-            <h2 class="h4 text-secondary mb-3">Listado de Usuarios</h2>
-            <div class="alert alert-info small" role="alert">
-                <i class="bi bi-info-circle-fill"></i> **Requisito TFI:** Este listado se obtiene de `https://dummyjson.com/users` y solo muestra datos no sensibles.
-            </div>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>ID</th>
-                            <th>Foto</th>
-                            <th>Usuario</th>
-                            <th>Nombre Completo</th>
-                            <th>Email</th>
-                            <th>Universidad</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-usuarios">
-                        </tbody>
-                </table>
-            </div>
+    </div> </main>
+
+<footer class="footer bg-light text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-2 text-dark">&copy; 2025 Clínica-IDW-SA. Todos los derechos reservados.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/fcad.uner?igsh=OGF2YXBuNDVjajlp" target="_blank" class="text-dark mx-2"><i class="bi bi-instagram" style="font-size: 1.6rem;"></i></a>
+            <a href="https://whatsapp.com/channel/0029VaP3mr5CMY0EHtQ2tq3G" target="_blank" class="text-dark mx-2"><i class="bi bi-whatsapp" style="font-size: 1.6rem;"></i></a>
+            <a href="https://www.youtube.com/watch?v=ULhIeI57B_c&ab_channel=UNERFcad" target="_blank" class="text-dark mx-2"><i class="bi bi-youtube" style="font-size: 1.6rem;"></i></a>
         </div>
     </div>
-</main>
-
-
-<footer class="footer bg-light text-center py-4">
-  <div class="container">
-    <p class="mb-2 text-dark">&copy; 2025 Clínica-IDW-SA. Todos los derechos reservados.</p>
-    <div class="social-links">
-      <a href="https://www.instagram.com/fcad.uner?igsh=OGF2YXBuNDVjajlp" target="_blank" class="text-dark mx-2">
-        <i class="bi bi-instagram" style="font-size: 1.6rem;"></i>
-      </a>
-      <a href="https://whatsapp.com/channel/0029VaP3mr5CMY0EHtQ2tq3G" target="_blank" class="text-dark mx-2">
-        <i class="bi bi-whatsapp" style="font-size: 1.6rem;"></i>
-      </a>
-      <a href="https://www.youtube.com/watch?v=ULhIeI57B_c&ab_channel=UNERFcad" target="_blank" class="text-dark mx-2">
-        <i class="bi bi-youtube" style="font-size: 1.6rem;"></i>
-      </a>
-    </div>
-  </div>
 </footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<script type="module" src="js/main.js"></script>
-<script type="module">
-    import { isAuthenticated, logout } from './js/main.js'; 
-    document.addEventListener('DOMContentLoaded', () => {
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', logout);
-        }
-        const adminLink = document.getElementById('nav-admin-link');
-        if (adminLink) {
-            if (isAuthenticated()) {
-                adminLink.href = 'admin.html';
-            }
-        }
-    });
-</script>
-<script type="module">
-import { isAuthenticated } from './js/main.js'; 
 
-function checkAuth() {
-    if (!isAuthenticated()) {
-        window.location.replace('login.html');
-    }
-}
-checkAuth(); 
-</script>
 </body>
 </html>

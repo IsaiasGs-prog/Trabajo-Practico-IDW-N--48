@@ -8,7 +8,7 @@ export function obtenerReservas() {
     return JSON.parse(localStorage.getItem(RESERVAS_KEY)) || [];
 }
 
-function guardarReservas(lista) {
+export function guardarReservas(lista) {
     localStorage.setItem(RESERVAS_KEY, JSON.stringify(lista));
 }
 
@@ -18,7 +18,7 @@ function guardarReservas(lista) {
 export function agregarReserva(reserva) {
     const lista = obtenerReservas();
     reserva.id = Date.now(); 
-    reserva.fechaCreacion = new Date().toLocaleString();
+    reserva.fechaCreacion = new Date().toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
     reserva.estado = 'Confirmada'; 
     lista.push(reserva);
     guardarReservas(lista);
@@ -29,13 +29,14 @@ export function agregarReserva(reserva) {
 export function obtenerPacientesUnicos() {
     const reservas = obtenerReservas();
     const pacientesMap = new Map();
-    
+    reservas.sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
+
     reservas.forEach(r => {
         if (!pacientesMap.has(r.documento)) {
             pacientesMap.set(r.documento, {
                 nombre: r.pacienteNombre,
                 documento: r.documento,
-                ultimaReserva: r.fechaCreacion
+                ultimaReserva: r.fechaCreacion 
             });
         }
     });
