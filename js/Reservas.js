@@ -8,8 +8,9 @@ export function obtenerReservas() {
     return JSON.parse(localStorage.getItem(RESERVAS_KEY)) || [];
 }
 
-function guardarReservas(lista) {
+export function guardarReservas(lista) {
     localStorage.setItem(RESERVAS_KEY, JSON.stringify(lista));
+    
 }
 
 /**
