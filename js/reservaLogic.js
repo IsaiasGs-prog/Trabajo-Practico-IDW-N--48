@@ -26,7 +26,10 @@ function cargarMedicosPorEspecialidad() {
         medicosFiltrados.forEach(m => {
             const option = document.createElement('option');
             option.value = m.id;
-            option.textContent = `${m.nombre} (Costo base: $${m.costoConsulta.toFixed(2)})`; 
+            // Protegemos contra m.costoConsulta undefined
+            const costo = (typeof m.costoConsulta === 'number') ? m.costoConsulta : (Number(m.costoConsulta) || 0);
+            // mostramos costo solo si es > 0
+            option.textContent = `${m.nombre}${costo ? ` (Costo base: $${costo.toFixed(2)})` : ''}`;
             select.appendChild(option);
         });
     } else {
@@ -34,6 +37,7 @@ function cargarMedicosPorEspecialidad() {
     }
     document.getElementById('costo-reserva').classList.add('d-none');
 }
+
 
 function cargarObrasSociales() {
     const obrasSociales = obtenerObrasSociales();
@@ -52,44 +56,58 @@ function calcularCosto() {
     const costoDisplay = document.querySelector('#costo-reserva span');
     const costoContainer = document.getElementById('costo-reserva');
 
+    // Si falta alguno de los dos, ocultamos el costo
     if (!medicoId || !obraSocialId) {
         costoContainer.classList.add('d-none');
         return 0;
     }
-    
+
     const medico = obtenerMedicos().find(m => m.id === parseInt(medicoId));
     const obraSocial = obtenerObrasSociales().find(os => os.id === parseInt(obraSocialId));
 
+    // Si no se encuentran, no continuamos
     if (!medico || !obraSocial) {
         costoContainer.classList.add('d-none');
         return 0;
     }
 
-    let costoFinal = medico.costoConsulta;
+    // Convertimos costoConsulta a número seguro
+    const costoConsulta = Number(medico.costoConsulta) || 0;
+    let costoFinal = costoConsulta;
     let descuentoAplicado = 0;
 
-    const aceptaEspecialidad = obraSocial.acepta.includes("Todas") || obraSocial.acepta.includes(medico.especialidad);
+    const aceptaEspecialidad =
+        obraSocial.acepta.includes("Todas") || obraSocial.acepta.includes(medico.especialidad);
 
     if (aceptaEspecialidad && obraSocial.descuento > 0) {
-        descuentoAplicado = medico.costoConsulta * obraSocial.descuento;
-        costoFinal = medico.costoConsulta - descuentoAplicado;
+        descuentoAplicado = costoConsulta * obraSocial.descuento;
+        costoFinal = costoConsulta - descuentoAplicado;
         costoContainer.classList.remove('alert-danger');
         costoContainer.classList.add('alert-info');
     } else if (obraSocial.descuento > 0) {
-        costoFinal = medico.costoConsulta;
+        costoFinal = costoConsulta;
         costoContainer.classList.remove('alert-info');
         costoContainer.classList.add('alert-danger');
-        costoContainer.innerHTML = `<i class="bi bi-currency-dollar"></i> Costo final: <strong>$${costoFinal.toFixed(2)}</strong>. <br><small>El descuento de ${obraSocial.nombre} no aplica para ${medico.especialidad}.</small>`;
+        costoContainer.innerHTML = `
+            <i class="bi bi-currency-dollar"></i> 
+            Costo final: <strong>$${costoFinal.toFixed(2)}</strong>.<br>
+            <small>El descuento de ${obraSocial.nombre} no aplica para ${medico.especialidad}.</small>
+        `;
         return costoFinal;
     }
 
-    costoDisplay.textContent = costoFinal.toFixed(2);
+    // Mostramos la información del costo
     costoContainer.classList.remove('d-none');
     costoContainer.innerHTML = `
-        <i class="bi bi-currency-dollar"></i> Costo Base: $${medico.costoConsulta.toFixed(2)} <br>
-        ${descuentoAplicado > 0 ? `Descuento ${obraSocial.nombre} (${(obraSocial.descuento * 100).toFixed(0)}%): -$${descuentoAplicado.toFixed(2)}<br>` : ''}
+        <i class="bi bi-currency-dollar"></i> 
+        Costo Base: $${costoConsulta.toFixed(2)} <br>
+        ${descuentoAplicado > 0 ? 
+            `Descuento ${obraSocial.nombre} (${(obraSocial.descuento * 100).toFixed(0)}%): -$${descuentoAplicado.toFixed(2)}<br>` 
+            : ''}
         Costo Final: <strong>$${costoFinal.toFixed(2)}</strong>
     `;
+
+    if (costoDisplay) costoDisplay.textContent = costoFinal.toFixed(2);
 
     return costoFinal;
 }
@@ -185,3 +203,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('form-reserva').addEventListener('submit', handleFormSubmit);
     document.getElementById('btn-consultar-reservas').addEventListener('click', consultarReservas);
 });
+
+

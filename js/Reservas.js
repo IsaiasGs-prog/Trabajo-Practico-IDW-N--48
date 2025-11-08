@@ -42,3 +42,4 @@ export function obtenerPacientesUnicos() {
 
     return Array.from(pacientesMap.values());
 }
+

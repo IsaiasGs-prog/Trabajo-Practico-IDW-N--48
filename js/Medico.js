@@ -7,6 +7,8 @@ export const DOCTORES_INICIALES = [
   { id: 4, nombre: "Dr. Carlos López", especialidad: "Dermatología", telefono: "345-234-5681", obraSocial: "IOMA", costoConsulta: 8200, img: "https://i.pinimg.com/736x/57/59/83/57598351d2ab9824b08717160ba1c992.jpg" }
 ];
 
+
+
 if (!localStorage.getItem("medicos")) {
   localStorage.setItem("medicos", JSON.stringify(DOCTORES_INICIALES));
 }
