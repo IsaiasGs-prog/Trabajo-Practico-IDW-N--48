@@ -1,4 +1,3 @@
-// js/seleccionMedico.js
 import { obtenerMedicos } from "./Medico.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // OBTENER lista de médicos (AHORA la variable existe)
   const medicos = obtenerMedicos();
   console.log("seleccionMedico -> medicos cargados:", medicos);
 
@@ -19,10 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Cargar especialidades únicas
 
-
-  // Cuando cambie la especialidad, rellenar médicos
   especialidadSelect.addEventListener("change", () => {
     const seleccion = especialidadSelect.value;
 
@@ -44,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     medicosFiltrados.forEach(m => {
       const option = document.createElement("option");
       option.value = m.id;
-      // Mostrar nombre y (si existe) costo; evitar error si falta costo
       const costo = typeof m.costoConsulta === "number" ? m.costoConsulta : (Number(m.costoConsulta) || 0);
       option.textContent = `${m.nombre}${costo ? ` (Costo: $${costo.toFixed(2)})` : ''}`;
       medicoSelect.appendChild(option);

@@ -26,7 +26,7 @@ function cancelarReserva(id) {
         let lista = obtenerReservas();
         const index = lista.findIndex(r => r.id === id);
         if (index !== -1) {
-            lista[index].estado = 'Cancelada por Admin';
+            lista[index].estado = 'Cancelada';
             guardarReservas(lista);
             mostrarReservas();
         }
