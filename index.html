@@ -58,8 +58,7 @@
           <h3 class="fw-bold text-primary mb-3">Nuestros Especialistas Destacados</h3>
           <p class="lead text-secondary">Conoce a algunos de los profesionales que te atenderán.</p>
       </div>
-      <div class="row g-4" id="destacados-index">
-      </div>
+      <div class="row g-4" id="destacados-index"> </div>
       
       <div class="text-center mt-5">
           <a href="institucional.html" class="btn btn-outline-primary btn-lg">Ver Más Profesionales</a>
@@ -163,6 +162,14 @@
 
 <script type="module" src="js/Medico.js"></script>
 <script type="module" src="js/main.js"></script>
+
+
+<script type="module">
+    import { cargarDestacadosIndex } from './js/Medico.js'; 
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarDestacadosIndex();
+    });
+</script>
 </body>
 </html>
 

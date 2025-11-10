@@ -113,5 +113,12 @@
 
 <script type="module" src="js/Medico.js"></script>
 <script type="module" src="js/main.js"></script>
+
+<script type="module">
+    import { cargarCatalogoProfesionales } from './js/Medico.js';
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarCatalogoProfesionales(); 
+    });
+</script>
 </body>
 </html>
