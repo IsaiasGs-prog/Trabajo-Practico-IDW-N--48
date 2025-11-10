@@ -1,153 +1,77 @@
-const DEFAULT_IMG_URL = "https://i.pinimg.com/736x/2e/7f/f9/2e7ff930420f590aa6d785aec296ac3b.jpg";
-
-export const DOCTORES_INICIALES = [
-  { id: 1, nombre: "Dr. Juan Pérez", especialidad: "Cardiología", telefono: "345-234-5678", obraSocial: "Andar", costoConsulta: 75000, img: "https://i.pinimg.com/736x/2e/7f/f9/2e7ff930420f590aa6d785aec296ac3b.jpg" },
-  { id: 2, nombre: "Dra. Ana Gómez", especialidad: "Ginecología", telefono: "345-234-5679", obraSocial: "Construir Salud", costoConsulta: 68000, img: "https://i.pinimg.com/736x/41/30/b4/4130b4047f433315bf1afcdb4c27a206.jpg" },
-  { id: 3, nombre: "Dra. Angela Hamilton", especialidad: "Pediatría", telefono: "345-234-5680", obraSocial: "Cover Salud", costoConsulta: 55000, img: "https://i.pinimg.com/736x/e7/c6/cf/e7c6cfddd6154db93afd2611355a49c5.jpg" },
-  { id: 4, nombre: "Dr. Carlos López", especialidad: "Dermatología", telefono: "345-234-5681", obraSocial: "IOMA", costoConsulta: 82000, img: "https://i.pinimg.com/736x/57/59/83/57598351d2ab9824b08717160ba1c992.jpg" }
-];
-
-if (!localStorage.getItem("medicos")) {
-  localStorage.setItem("medicos", JSON.stringify(DOCTORES_INICIALES));
-}
-
 export function obtenerMedicos() {
-  return JSON.parse(localStorage.getItem("medicos")) || [];
-}
-
-export function obtenerMedicoPorId(id) {
-  return obtenerMedicos().find(m => m.id === parseInt(id)); 
-}
-
-function guardarMedicos(lista) {
-  localStorage.setItem("medicos", JSON.stringify(lista));
-}
-
-function agregarMedico(medico) {
-  const lista = obtenerMedicos();
-  medico.id = Date.now(); 
-  medico.img = medico.img && medico.img.trim() !== '' ? medico.img : DEFAULT_IMG_URL;
-  medico.costoConsulta = parseFloat(medico.costoConsulta) || 0;
-  lista.push(medico);
-  guardarMedicos(lista);
-  mostrarMedicos();
-  cargarCatalogoProfesionales();
-  cargarDestacadosIndex();
-  dispatchMedicosActualizados(); 
-  
-  console.log("✅ Médico agregado:", medico);
-}
-
-function editarMedico(id, datosActualizados) {
-  const lista = obtenerMedicos().map(m => { 
-    if (m.id === parseInt(id)) {
-      return {
-        ...m,
-        ...datosActualizados,
-        img: datosActualizados.img && datosActualizados.img.trim() !== '' ? datosActualizados.img : DEFAULT_IMG_URL,
-        costoConsulta: parseFloat(datosActualizados.costoConsulta) || 0,
-        id: parseInt(id) 
-      };
+    const key = 'medicos';
+    try {
+        const raw = localStorage.getItem(key);
+        const parsed = raw ? JSON.parse(raw) : null;
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch (e) {
+        console.warn('Error parseando medicos en localStorage, se usarán valores por defecto.', e);
     }
-    return m;
-  });
-  
-  guardarMedicos(lista);
-  mostrarMedicos();
-  cargarCatalogoProfesionales();
-  cargarDestacadosIndex();
-  
-  console.log("✏️ Médico editado, ID:", id, "Datos:", datosActualizados);
+
+    const medicosPorDefecto = [
+        { id: 1, nombre: 'Dr. Juan Pérez', especialidad: 'Medicina General', costoConsulta: 2500, imagen: 'https://ar.pinterest.com/pin/1042231538777460903/' },
+        { id: 2, nombre: 'Dra. Ana Gómez', especialidad: 'Pediatría', costoConsulta: 3000, imagen: 'https://ar.pinterest.com/pin/1042231538777460939/' },
+        { id: 3, nombre: 'Dr. Carlos Ruiz', especialidad: 'Cardiología', costoConsulta: 4500, imagen: 'https://ar.pinterest.com/pin/1042231538777461135/' },
+        { id: 4, nombre: 'Dra. Angela Hamilton', especialidad: 'Dermatología', costoConsulta: 3800, imagen: 'https://ar.pinterest.com/pin/1042231538777460952/' }
+    ];
+
+    localStorage.setItem(key, JSON.stringify(medicosPorDefecto));
+    return medicosPorDefecto;
 }
 
-export function eliminarMedico(id) {
-    const listaMedicos = obtenerMedicos();
-    const nuevaLista = listaMedicos.filter(m => m.id !== parseInt(id)); 
-    localStorage.setItem("medicos", JSON.stringify(nuevaLista));
-    mostrarMedicos();
-    cargarCatalogoProfesionales(); 
-    cargarDestacadosIndex();
-    console.log(`🗑️ Médico con ID ${id} eliminado. Lista actualizada.`);
+export function guardarMedicos(medicos) {
+    try {
+        localStorage.setItem('medicos', JSON.stringify(medicos || []));
+    } catch (e) {
+        console.error('No se pudo guardar medicos en localStorage', e);
+    }
 }
 
-function mostrarMedicos() {
-  const tabla = document.getElementById("tabla-medicos");
-  if (!tabla) return; 
+function formatoCosto(medico) {
+    if (!medico || medico.costoConsulta === null || medico.costoConsulta === undefined || medico.costoConsulta === '') {
+        return 'Consultar';
+    }
+    const costo = medico.costoConsulta;
+    if (typeof costo === 'number' && !isNaN(costo)) {
+        return `$ ${costo.toLocaleString('es-AR')}`;
+    }
+    return String(costo);
+}
 
-  const lista = obtenerMedicos();
+function templateCardMedico(m) {
+    const img = m.imagen && m.imagen.trim() ? m.imagen : 'img/placeholder.png';
+    const nombre = m.nombre || 'Sin nombre';
+    const especialidad = m.especialidad || '';
+    const costoTexto = formatoCosto(m);
 
-  tabla.innerHTML = lista.map(m => `
-    <tr>
-      <td>${m.nombre}</td>
-      <td>${m.especialidad}</td>
-      <td>$${parseFloat(m.costoConsulta || 0).toFixed(2)}</td>
-      <td>${m.obraSocial}</td>
-      <td>${m.telefono}</td>
-      <td>
-        <button class="btn btn-warning btn-sm" onclick="editar(${m.id})"><i class="bi bi-pencil"></i> Editar</button>
-        <button class="btn btn-danger btn-sm" onclick="borrar(${m.id})"><i class="bi bi-trash"></i> Eliminar</button>
-      </td>
-    </tr>
-  `).join("");
+    return `
+    <div class="col-sm-6 col-md-4">
+        <div class="card h-100 shadow-sm">
+            <img src="${img}" class="card-img-top" alt="${nombre}">
+            <div class="card-body">
+                <h5 class="card-title">${nombre}</h5>
+                <p class="card-text text-secondary mb-2">${especialidad}</p>
+                <p class="card-text"><strong>Costo:</strong> ${costoTexto}</p>
+            </div>
+        </div>
+    </div>
+    `;
 }
 
 export function cargarCatalogoProfesionales() {
-    const catalogoContainer = document.getElementById("catalogo-profesionales");
-    if (!catalogoContainer) {
-        console.log("⚠️ No se encontró #catalogo-profesionales");
-        return;
-    }
-
-    const lista = obtenerMedicos();
-    console.log("📋 Cargando catálogo con", lista.length, "médicos");
-    
-    if (lista.length === 0) {
-        catalogoContainer.innerHTML = '<div class="col-12"><p class="text-center text-muted">No hay médicos disponibles en este momento.</p></div>';
-        return;
-    }
-    
-    const cardsHTML = lista.map(m => `
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card h-100 doctor-card shadow-sm">
-                <img src="${m.img || DEFAULT_IMG_URL}" class="card-img-top" alt="Foto de ${m.nombre}"> 
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">${m.nombre}</h5>
-                    <p class="card-text mb-1 text-info"><strong>Especialidad:</strong> ${m.especialidad}</p>
-                    <p class="card-text mb-1 text-secondary"><strong>Teléfono:</strong> ${m.telefono}</p>
-                    <p class="card-text mb-0 text-muted"><strong>Obra Social:</strong> ${m.obraSocial}</p>
-                </div>
-            </div>
-        </div>
-    `).join("");
-
-    catalogoContainer.innerHTML = cardsHTML;
-    console.log("✅ Catálogo actualizado");
+    const cont = document.getElementById('catalogo-profesionales');
+    if (!cont) return;
+    const medicos = obtenerMedicos();
+    cont.innerHTML = '';
+    medicos.forEach(m => cont.insertAdjacentHTML('beforeend', templateCardMedico(m)));
 }
 
-export function cargarDestacadosIndex() {
-    const destacadosContainer = document.getElementById("destacados-index");
-    if (!destacadosContainer) {
-        console.log("⚠️ No se encontró #destacados-index para destacados"); 
-        return;
-    }
-    const listaMedicos = obtenerMedicos();
-    console.log("⭐ Cargando destacados con", listaMedicos.length, "médicos");
-    const listaDestacada = listaMedicos;  
-    const cardsHTML = listaDestacada.map(m => `
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card h-100 doctor-card shadow-sm border-0">
-                <img src="${m.img || DEFAULT_IMG_URL}" class="card-img-top" alt="Foto de ${m.nombre}">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold text-primary">${m.nombre}</h5>
-                    <p class="card-text text-info mb-1"><strong>${m.especialidad}</strong></p>
-                    <p class="card-text text-secondary small mb-2">Tel: ${m.telefono}</p>
-                    <p class="card-text text-muted small mb-0">OS: ${m.obraSocial}</p>
-                </div>
-            </div>
-        </div>
-    `).join("");
-    destacadosContainer.innerHTML = cardsHTML;
-    console.log("✅ Destacados actualizados");
+export function cargarDestacadosIndex(limit = 3) {
+    const cont = document.getElementById('destacados-index');
+    if (!cont) return;
+    const medicos = obtenerMedicos();
+    cont.innerHTML = '';
+    medicos.slice(0, limit).forEach(m => cont.insertAdjacentHTML('beforeend', templateCardMedico(m)));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
