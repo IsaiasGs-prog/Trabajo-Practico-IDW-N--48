@@ -58,6 +58,27 @@ function templateCardMedico(m) {
     `;
 }
 
+function mostrarMedicos() {
+  const tabla = document.getElementById("tabla-medicos");
+  if (!tabla) return; 
+
+  const lista = obtenerMedicos();
+
+  tabla.innerHTML = lista.map(m => `
+    <tr>
+      <td>${m.nombre}</td>
+      <td>${m.especialidad}</td>
+      <td>${m.telefono}</td>
+      <td>${m.obraSocial}</td>
+      <td>
+        <button class="btn btn-warning btn-sm" onclick="editar(${m.id})"><i class="bi bi-pencil"></i> Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="borrar(${m.id})"><i class="bi bi-trash"></i> Eliminar</button>
+      </td>
+    </tr>
+  `).join("");
+}
+
+
 export function cargarCatalogoProfesionales() {
     const cont = document.getElementById('catalogo-profesionales');
     if (!cont) return;
