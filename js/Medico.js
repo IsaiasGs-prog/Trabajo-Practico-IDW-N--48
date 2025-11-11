@@ -27,7 +27,6 @@ export function guardarMedicos(medicos) {
     }
 }
 
-// **NUEVAS FUNCIONES AGREGADAS**
 export function agregarMedico(datosMedico) {
     const medicos = obtenerMedicos();
     const nuevoId = medicos.length > 0 ? Math.max(...medicos.map(m => m.id)) + 1 : 1;
@@ -80,7 +79,7 @@ export function eliminarMedico(id) {
 
 function formatoCosto(medico) {
     if (!medico || medico.costoConsulta === null || medico.costoConsulta === undefined || medico.costoConsulta === '') {
-        return 'Consultar';
+        return '100.000';
     }
     const costo = medico.costoConsulta;
     if (typeof costo === 'number' && !isNaN(costo)) {
