@@ -12,7 +12,7 @@ export function obtenerMedicos() {
         { id: 1, nombre: 'Dr. Juan Pérez', especialidad: 'Medicina General', costoConsulta: 25000, imagen: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400', telefono: '3434-123456', obraSocial: 'Andar' },
         { id: 2, nombre: 'Dra. Ana Gómez', especialidad: 'Pediatría', costoConsulta: 30000, imagen: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400', telefono: '3434-234567', obraSocial: 'Cover Salud' },
         { id: 3, nombre: 'Dr. Carlos Ruiz', especialidad: 'Cardiología', costoConsulta: 40000, imagen: 'https://i.pinimg.com/1200x/b5/a8/ae/b5a8ae9cc02f86cf0e7fe51a0756c50e.jpg', telefono: '3434-345678', obraSocial: 'Construir Salud' },
-        { id: 4, nombre: 'Dra. Angela Hamilton', especialidad: 'Dermatología', costoConsulta: 35000, imagen: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400', telefono: '3434-456789', obraSocial: 'IOMA' }
+        { id: 4, nombre: 'Dra. Angela Hamilton', especialidad: 'Dermatología', costoConsulta: 35000, imagen: 'https://i.pinimg.com/736x/a5/d6/89/a5d68988b1dded2eff7807a615a2add0.jpg', telefono: '3434-456789', obraSocial: 'IOMA' }
     ];
 
     localStorage.setItem(key, JSON.stringify(medicosPorDefecto));
