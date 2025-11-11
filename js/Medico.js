@@ -9,10 +9,10 @@ export function obtenerMedicos() {
     }
 
     const medicosPorDefecto = [
-        { id: 1, nombre: 'Dr. Juan Pérez', especialidad: 'Medicina General', costoConsulta: 22500, imagen: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400', telefono: '', obraSocial: '' },
-        { id: 2, nombre: 'Dra. Ana Gómez', especialidad: 'Pediatría', costoConsulta: 33000, imagen: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400', telefono: '', obraSocial: '' },
-        { id: 3, nombre: 'Dr. Carlos Ruiz', especialidad: 'Cardiología', costoConsulta: 44500, imagen: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400', telefono: '', obraSocial: '' },
-        { id: 4, nombre: 'Dra. Angela Hamilton', especialidad: 'Dermatología', costoConsulta: 53800, imagen: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400', telefono: '', obraSocial: '' }
+        { id: 1, nombre: 'Dr. Juan Pérez', especialidad: 'Medicina General', costoConsulta: 25000, imagen: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400', telefono: '3434-123456', obraSocial: 'OSDE' },
+        { id: 2, nombre: 'Dra. Ana Gómez', especialidad: 'Pediatría', costoConsulta: 30000, imagen: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400', telefono: '3434-234567', obraSocial: 'Swiss Medical' },
+        { id: 3, nombre: 'Dr. Carlos Ruiz', especialidad: 'Cardiología', costoConsulta: 40000, imagen: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400', telefono: '3434-345678', obraSocial: 'Galeno' },
+        { id: 4, nombre: 'Dra. Angela Hamilton', especialidad: 'Dermatología', costoConsulta: 35000, imagen: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400', telefono: '3434-456789', obraSocial: 'Medifé' }
     ];
 
     localStorage.setItem(key, JSON.stringify(medicosPorDefecto));
@@ -78,7 +78,7 @@ export function eliminarMedico(id) {
 }
 
 function formatoCosto(medico) {
-    const COSTO_PREDEFINIDO = 200.000;
+    const COSTO_PREDEFINIDO = 200000;
     
     if (!medico || medico.costoConsulta === null || medico.costoConsulta === undefined || medico.costoConsulta === '') {
         return `$ ${COSTO_PREDEFINIDO.toLocaleString('es-AR')}`;
@@ -96,18 +96,20 @@ function templateCardMedico(m) {
     const especialidad = m.especialidad || '';
     const costoTexto = formatoCosto(m);
     const obraSocial = m.obraSocial && m.obraSocial.trim() ? m.obraSocial : 'No especificada';
+    const telefono = m.telefono && m.telefono.trim() ? m.telefono : 'No disponible';
 
     return `
     <div class="col-sm-6 col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
             <img src="${img}" class="card-img-top" alt="${nombre}" 
-                 style="height: 250px; object-fit: cover;"
-                 onerror="this.src='img/doctor1.jpeg'">
+                style="height: 250px; object-fit: cover;"
+                onerror="this.src='img/doctor1.jpeg'">
             <div class="card-body">
                 <h5 class="card-title">${nombre}</h5>
-                <p class="card-text text-secondary mb-2">${especialidad}</p>
-                <p class="card-text mb-1"><strong>Costo:</strong> ${costoTexto}</p>
-                <p class="card-text"><strong>Obra Social:</strong> ${obraSocial}</p>
+                <p class="card-text text-secondary mb-2"><i class="bi bi-heart-pulse"></i> ${especialidad}</p>
+                <p class="card-text mb-1"><strong><i class="bi bi-cash"></i> Consulta:</strong> ${costoTexto}</p>
+                <p class="card-text mb-1"><strong><i class="bi bi-hospital"></i> Obra Social:</strong> ${obraSocial}</p>
+                <p class="card-text"><strong><i class="bi bi-telephone"></i> Teléfono:</strong> ${telefono}</p>
             </div>
         </div>
     </div>
@@ -125,6 +127,7 @@ function mostrarMedicos() {
             <td>${m.nombre}</td>
             <td>${m.especialidad}</td>
             <td>$ ${m.costoConsulta?.toLocaleString('es-AR') || '0'}</td>
+            <td>${m.telefono || '-'}</td>
             <td>${m.obraSocial || '-'}</td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editar(${m.id})"><i class="bi bi-pencil"></i> Editar</button>
@@ -138,8 +141,7 @@ export function cargarCatalogoProfesionales() {
     const cont = document.getElementById('catalogo-profesionales');
     if (!cont) return;
     const medicos = obtenerMedicos();
-    
-    // Asegurarse de que el contenedor tenga las clases de Bootstrap
+
     if (!cont.classList.contains('row')) {
         cont.classList.add('row', 'g-4');
     }
@@ -152,8 +154,7 @@ export function cargarDestacadosIndex(limit = 3) {
     const cont = document.getElementById('destacados-index');
     if (!cont) return;
     const medicos = obtenerMedicos();
-    
-    // Asegurarse de que el contenedor tenga las clases de Bootstrap
+
     if (!cont.classList.contains('row')) {
         cont.classList.add('row', 'g-4');
     }
