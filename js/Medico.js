@@ -78,8 +78,10 @@ export function eliminarMedico(id) {
 }
 
 function formatoCosto(medico) {
+    const COSTO_PREDEFINIDO = 200.000;
+    
     if (!medico || medico.costoConsulta === null || medico.costoConsulta === undefined || medico.costoConsulta === '') {
-        return '100.000';
+        return `$ ${COSTO_PREDEFINIDO.toLocaleString('es-AR')}`;
     }
     const costo = medico.costoConsulta;
     if (typeof costo === 'number' && !isNaN(costo)) {
